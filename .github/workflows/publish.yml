@@ -1,0 +1,45 @@
+name: Publish
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish:
+    name: Publish
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure Node.js
+        uses: actions/setup-node@v3
+          with:
+            node-version: '16.x'
+            registry-url: 'https://registry.npmjs.org'
+
+      - name: Perform "clean" install of project
+        run: npm ci
+
+      - name: Configure git user email
+        run: git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+      - name: Configure git user name
+        run: git config user.name "$GITHUB_ACTOR"
+
+      - name: Increment the minor semantic version number
+        run: npm version minor -m "increment minor semantic version number to %s"
+
+      - name: Push to GitHub
+        run: git push "https://$GITHUB_ACTOR:${{ secrets.ACCESS_TOKEN }}@github.com/$GITHUB_REPOSITORY.git"
+
+      - name: Publish to NPM
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+
+
