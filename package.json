@@ -1,23 +1,23 @@
 {
   "name": "p9k",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "PAL-9000",
   "keywords": [
-	"templates",
-	"metaprogramming",
-	"typescript",
-	"modules"
+    "templates",
+    "metaprogramming",
+    "typescript",
+    "modules"
   ],
   "type": "module",
   "main": "main.js",
   "bin": {
-	"p9k": "main.js"
+    "p9k": "main.js"
   },
   "devDependencies": {
-	"jest": "^29.3.1",
-	"prettier": "^2.8.0"
+    "jest": "^29.3.1",
+    "prettier": "^2.8.0"
   },
   "dependencies": {
-	"meow": "^11.0.0"
+    "meow": "^11.0.0"
   }
 }
